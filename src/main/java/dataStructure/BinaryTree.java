@@ -12,6 +12,8 @@ public class BinaryTree {
     public BinaryTree rightChild;
     public Integer value;
 
+    public BinaryTree next;
+
     public BinaryTree getLeftChild() {
         return leftChild;
     }
@@ -34,5 +36,13 @@ public class BinaryTree {
 
     public void setValue(Integer value) {
         this.value = value;
+    }
+
+    public BinaryTree getNext() {
+        return next;
+    }
+
+    public void setNext(BinaryTree next) {
+        this.next = next;
     }
 }

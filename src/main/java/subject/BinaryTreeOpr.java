@@ -53,6 +53,29 @@ public class BinaryTreeOpr {
         return root;
     }
 
+    //对于完美二叉树，填充每个节点的下一个右侧指针
+    //主函数
+    BinaryTree connect(BinaryTree root){
+        if (root == null) {
+            return null;
+        }
+        connectTwo(root.leftChild, root.rightChild);
+        return root;
+    }
+
+    //「将每一层二叉树节点连接起来」可以细化成「将每两个相邻节点都连接起来」
+    //辅助函数
+    void connectTwo(BinaryTree node1, BinaryTree node2){
+        if (node1 == null || node2 == null) {
+            return ;
+        }
+        node1.setNext(node2);
+        connectTwo(node1.leftChild, node1.rightChild);
+        connectTwo(node2.leftChild, node2.rightChild);
+        connectTwo(node1.rightChild, node2.leftChild);
+    }
+
+
 
 
 
