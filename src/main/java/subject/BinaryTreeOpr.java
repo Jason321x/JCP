@@ -1,6 +1,7 @@
 package subject;
 
 import dataStructure.BinaryTree;
+import dataStructure.LinkedNode;
 
 /**
  * @className: BinaryTreeOpr
@@ -21,8 +22,9 @@ public class BinaryTreeOpr {
         tree1.setLeftChild(tree2);
         tree1.setRightChild(tree3);
         tree2.setLeftChild(tree4);
-        reverseBinaryTree(tree1);
-        preTraverse(tree1);
+//        reverseBinaryTree(tree1);
+//        preTraverse(tree1);
+        flatten(tree1);
     }
 
     // 先序遍历二叉树
@@ -73,6 +75,38 @@ public class BinaryTreeOpr {
         connectTwo(node1.leftChild, node1.rightChild);
         connectTwo(node2.leftChild, node2.rightChild);
         connectTwo(node1.rightChild, node2.leftChild);
+    }
+
+
+    // 二叉树展开为链表,要求链表仍然使用二叉树的结构
+    // 第一反应是链表作为新的结构,有点问题
+    static void flatten(BinaryTree root) {
+        LinkedNode node = new LinkedNode();
+        LinkedNode nextNode = new LinkedNode();
+        LinkedNode nextNextNode = new LinkedNode();
+
+        if (root == null) {
+            return;
+        }
+        node.setVal(root.value);
+        System.out.println(node.getVal());
+        if (root.leftChild != null) {
+           nextNode.setVal(root.leftChild.value);
+           node.setNext(nextNode);
+           System.out.println("-" + nextNode.getVal());
+        }
+        if (root.rightChild != null) {
+            nextNextNode.setVal(root.rightChild.value);
+            nextNode.setNext(nextNextNode);
+            System.out.println(nextNextNode.getVal() + "-");
+        }
+
+        flatten(root.leftChild);
+        flatten(root.rightChild);
+    }
+
+    static void flattenNew(BinaryTree root) {
+
     }
 
 
