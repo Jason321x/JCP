@@ -105,7 +105,28 @@ public class BinaryTreeOpr {
         flatten(root.rightChild);
     }
 
+    //将以root为根的树拉平为链表
+    //右节点放到左节点的下面，然后将整个左子树作为右子树
     static void flattenNew(BinaryTree root) {
+        if (root == null) {
+            return;
+        }
+
+        /**后序遍历位置**/
+        //1.左右子树已经被拉平成链表
+        BinaryTree left = root.leftChild;
+        BinaryTree right = root.rightChild;
+
+        // 2、将左子树作为右子树
+        root.leftChild = null;
+        root.rightChild = left;
+
+        // 3、将原先的右子树接到当前右子树的末端
+        BinaryTree p = root;
+        while (p.rightChild != null) {
+            p = p.rightChild;
+        }
+        p.rightChild = right;
 
     }
 
