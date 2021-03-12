@@ -1,8 +1,6 @@
 package subject;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @className: TwoSum
@@ -76,5 +74,71 @@ public class TwoSum {
         System.out.println(Arrays.toString(findTwoSumOrdered(nums, 6)));
 
 
+    }
+
+    // 给定一个包含n 个整数的数组nums 和一个目标值target，判断nums 中是否存在三个元素a，b，c，使得a + b + c 的值与target 相等？
+    // 找出所有满足条件且不重复的三元组。 答案中不可以包含重复的三元组。
+    private List<List<Integer>> test(int[] nums, int target){
+
+        //[[],[],[]]
+//        List<List<Integer>> result = Lists.newArrayList();
+//
+//        Map<Integer, Integer> map = Maps.newHashMap();
+//        for (int i = 0;i < nums.length;i++) {
+//            map.put(nums[i], i);
+//        }
+//        for (int i = 0;i < nums.length;i++){
+//            int twoSum = target - nums[i];
+//            for (int j = i + 1;j < nums.length - 1;j++) {
+//                int one = nums[j];
+//                if (map.containsKey(twoSum - one) && map.get(twoSum - one) != i && map.get(twoSum - one) != j) {
+//                    result.add(Lists.newArrayList(i, j, map.get(twoSum - one)));
+//                }
+//            }
+//        }
+//        return result;
+        return null;
+    }
+
+    // 给定一个包含n 个整数的数组nums 和一个目标值target，判断nums 中是否存在四个元素a，b，c 和d ，使得a + b + c + d 的值与target 相等？
+    // 找出所有满足条件且不重复的四元组。 答案中不可以包含重复的四元组。
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        List<List<Integer>> result = new ArrayList<>();
+
+        if (nums.length == 0 || nums.length < 4) {
+            return result;
+        }
+
+        Arrays.sort(nums);
+
+        for (int i = 0; i < nums.length; i++) {
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            for (int j = i + 1; j < nums.length; j++) {
+                if (j > i + 1 && nums[j] == nums[j - 1]) {
+                    continue;
+                }
+                int left = j + 1;
+                int right = nums.length - 1;
+                while (left < right) {
+                    int sum = nums[i] + nums[j] + nums[left] + nums[right];
+                    if (sum > target) {
+                        right--;
+                    } else if (sum < target){
+                        left++;
+                    } else {
+                        result.add(Arrays.asList(nums[i], nums[j], nums[left], nums[right]));
+                        while (left < right && nums[right] == nums[right - 1]) right--;
+                        while (left < right && nums[left] == nums[left + 1]) left++;
+                        left++;
+                        right--;
+                    }
+                }
+            }
+
+        }
+
+        return result;
     }
 }
