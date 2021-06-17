@@ -1,5 +1,8 @@
 package subject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 运用你所掌握的数据结构，设计和实现一个  LRU (最近最少使用) 缓存机制 。
  * 实现 LRUCache 类：
@@ -39,7 +42,43 @@ public class LRUCache {
      * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
      * @param capacity
      */
-    public LRUCache(int capacity) {
 
+    private Map<Integer, Node> map;
+
+    private DoubleList cache;
+
+    private int capacity;
+
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        map = new HashMap<>();
+        cache = new DoubleList();
+    }
+
+    public int getKey(int key){
+        if (!map.containsKey(key)) {
+            return -1;
+        } else {
+            int value = map.get(key).value;
+            put(key, value);
+            return value;
+        }
+    }
+
+    public void put(int key, int value){
+        Node newNode = new Node(key, value);
+
+        if (map.containsKey(key)) {
+            cache.remove(map.get(key));
+        } else {
+            // 如果缓存已满，移除last
+            if (cache.size() == capacity) {
+                Node last = cache.removeLast();
+                map.remove(last.key);
+            }
+        }
+        cache.addFirst(newNode);
+        map.put(key, newNode);
     }
 }
+
